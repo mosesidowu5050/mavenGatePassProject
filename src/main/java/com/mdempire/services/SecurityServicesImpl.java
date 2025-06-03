@@ -1,25 +1,26 @@
-package com.mdempire.gatePass.services;
+package com.mdempire.services;
 
-import com.mdempire.gatePass.data.models.AccessToken;
-import com.mdempire.gatePass.data.models.Resident;
-import com.mdempire.gatePass.data.models.Security;
-import com.mdempire.gatePass.data.repositories.AccessTokens;
-import com.mdempire.gatePass.data.repositories.Securities;
-import com.mdempire.gatePass.dtos.requests.SecurityLoginServiceRequest;
-import com.mdempire.gatePass.dtos.requests.SecurityRegisterServiceRequest;
-import com.mdempire.gatePass.dtos.requests.SecurityVerifyTokenRequest;
-import com.mdempire.gatePass.dtos.responses.SecurityLoginServiceResponse;
-import com.mdempire.gatePass.dtos.responses.SecurityRegisterServiceResponse;
-import com.mdempire.gatePass.dtos.responses.SecurityVerifyTokenResponse;
-import com.mdempire.gatePass.exceptions.ResidentExistException;
-import com.mdempire.gatePass.exceptions.SecurityDoesNotExistException;
-import com.mdempire.gatePass.exceptions.SecurityExistException;
-import com.mdempire.gatePass.exceptions.TokenNotFoundException;
+
+import com.mdempire.data.models.AccessToken;
+import com.mdempire.data.models.Security;
+import com.mdempire.data.repositories.AccessTokens;
+import com.mdempire.data.repositories.Securities;
+import com.mdempire.dtos.requests.SecurityLoginServiceRequest;
+import com.mdempire.dtos.requests.SecurityRegisterServiceRequest;
+import com.mdempire.dtos.requests.SecurityVerifyTokenRequest;
+import com.mdempire.dtos.responses.SecurityLoginServiceResponse;
+import com.mdempire.dtos.responses.SecurityRegisterServiceResponse;
+import com.mdempire.dtos.responses.SecurityVerifyTokenResponse;
+import com.mdempire.exceptions.SecurityDoesNotExistException;
+import com.mdempire.exceptions.SecurityExistException;
+import com.mdempire.exceptions.TokenNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import static com.mdempire.gatePass.utils.Mapper.*;
+import static com.mdempire.utils.Mapper.*;
 
+@Slf4j
 @Service
 public class SecurityServicesImpl implements SecurityServices {
 
@@ -48,8 +49,6 @@ public class SecurityServicesImpl implements SecurityServices {
     @Override
     public SecurityVerifyTokenResponse verifyAccessToken(SecurityVerifyTokenRequest request) {
         AccessToken token = validateTokenForUse(request.getToken());
-        token.setUsed(true);
-        accessTokenRepository.save(token);
 
         return tokenResponse(token);
     }
@@ -57,7 +56,12 @@ public class SecurityServicesImpl implements SecurityServices {
 
     private AccessToken validateTokenForUse(String otpCode) {
         AccessToken token = accessTokenRepository.findByOtpCode(otpCode);
-        if (token.isUsed() && !token.isValid()) throw new TokenNotFoundException("This token has already been used.");
+        if (token == null) throw new TokenNotFoundException("Token not found.");
+        if (!token.isValid() || token.isUsed()) throw new TokenNotFoundException("This token is invalid or has already been used.");
+
+        token.setUsed(true);
+        token.setValid(false);
+        accessTokenRepository.save(token);
 
         return token;
     }

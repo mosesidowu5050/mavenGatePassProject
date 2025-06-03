@@ -1,14 +1,15 @@
-package com.mdempire.gatePass.services;
+package com.mdempire.services;
 
-import com.mdempire.gatePass.data.models.Visitor;
-import com.mdempire.gatePass.dtos.requests.FindAccessTokenRequest;
-import com.mdempire.gatePass.dtos.requests.ResidentLoginServiceRequest;
-import com.mdempire.gatePass.dtos.requests.ResidentRegisterServicesRequest;
-import com.mdempire.gatePass.dtos.requests.GenerateAccessTokenRequest;
-import com.mdempire.gatePass.dtos.responses.FindAccessTokenResponse;
-import com.mdempire.gatePass.dtos.responses.GenerateAccessTokenResponse;
-import com.mdempire.gatePass.dtos.responses.ResidentLoginServiceResponse;
-import com.mdempire.gatePass.dtos.responses.ResidentRegisterServicesResponse;
+
+import com.mdempire.data.models.Visitor;
+import com.mdempire.dtos.requests.FindAccessTokenRequest;
+import com.mdempire.dtos.requests.GenerateAccessTokenRequest;
+import com.mdempire.dtos.requests.ResidentLoginServiceRequest;
+import com.mdempire.dtos.requests.ResidentRegisterServicesRequest;
+import com.mdempire.dtos.responses.FindAccessTokenResponse;
+import com.mdempire.dtos.responses.GenerateAccessTokenResponse;
+import com.mdempire.dtos.responses.ResidentLoginServiceResponse;
+import com.mdempire.dtos.responses.ResidentRegisterServicesResponse;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.mdempire.gatePass.data.models;
+package com.mdempire.data.models;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;

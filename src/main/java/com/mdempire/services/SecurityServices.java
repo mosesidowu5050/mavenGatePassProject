@@ -1,11 +1,12 @@
-package com.mdempire.gatePass.services;
+package com.mdempire.services;
 
-import com.mdempire.gatePass.dtos.requests.SecurityLoginServiceRequest;
-import com.mdempire.gatePass.dtos.requests.SecurityRegisterServiceRequest;
-import com.mdempire.gatePass.dtos.requests.SecurityVerifyTokenRequest;
-import com.mdempire.gatePass.dtos.responses.SecurityLoginServiceResponse;
-import com.mdempire.gatePass.dtos.responses.SecurityRegisterServiceResponse;
-import com.mdempire.gatePass.dtos.responses.SecurityVerifyTokenResponse;
+
+import com.mdempire.dtos.requests.SecurityLoginServiceRequest;
+import com.mdempire.dtos.requests.SecurityRegisterServiceRequest;
+import com.mdempire.dtos.requests.SecurityVerifyTokenRequest;
+import com.mdempire.dtos.responses.SecurityLoginServiceResponse;
+import com.mdempire.dtos.responses.SecurityRegisterServiceResponse;
+import com.mdempire.dtos.responses.SecurityVerifyTokenResponse;
 
 public interface SecurityServices {
 

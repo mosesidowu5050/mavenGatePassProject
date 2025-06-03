@@ -1,13 +1,14 @@
-package com.mdempire.gatePass.utils;
+package com.mdempire.utils;
 
-import com.mdempire.gatePass.data.models.AccessToken;
-import com.mdempire.gatePass.data.models.Resident;
-import com.mdempire.gatePass.data.models.Security;
-import com.mdempire.gatePass.data.models.Visitor;
-import com.mdempire.gatePass.dtos.requests.ResidentRegisterServicesRequest;
-import com.mdempire.gatePass.dtos.requests.GenerateAccessTokenRequest;
-import com.mdempire.gatePass.dtos.requests.SecurityRegisterServiceRequest;
-import com.mdempire.gatePass.dtos.responses.*;
+
+import com.mdempire.data.models.AccessToken;
+import com.mdempire.data.models.Resident;
+import com.mdempire.data.models.Security;
+import com.mdempire.data.models.Visitor;
+import com.mdempire.dtos.requests.GenerateAccessTokenRequest;
+import com.mdempire.dtos.requests.ResidentRegisterServicesRequest;
+import com.mdempire.dtos.requests.SecurityRegisterServiceRequest;
+import com.mdempire.dtos.responses.*;
 
 import java.time.format.DateTimeFormatter;
 import java.util.Random;
@@ -63,7 +64,7 @@ public class Mapper {
         return resident;
     }
 
-    public static Visitor visitorsInformationMapper(GenerateAccessTokenRequest residentRequest) {
+    public static Visitor  visitorsInformationMapper(GenerateAccessTokenRequest residentRequest) {
         Visitor visitor = new Visitor();
         visitor.setFullName(residentRequest.getVisitorsName());
         visitor.setPhoneNumber(residentRequest.getVisitorsPhoneNumber());

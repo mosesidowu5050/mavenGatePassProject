@@ -1,4 +1,4 @@
-package com.mdempire.gatePass.dtos.requests;
+package com.mdempire.dtos.requests;
 
 import lombok.Data;
 

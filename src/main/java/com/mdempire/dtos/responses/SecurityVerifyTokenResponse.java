@@ -1,7 +1,8 @@
-package com.mdempire.gatePass.dtos.responses;
+package com.mdempire.dtos.responses;
 
-import com.mdempire.gatePass.data.models.Resident;
-import com.mdempire.gatePass.data.models.Visitor;
+
+import com.mdempire.data.models.Resident;
+import com.mdempire.data.models.Visitor;
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 

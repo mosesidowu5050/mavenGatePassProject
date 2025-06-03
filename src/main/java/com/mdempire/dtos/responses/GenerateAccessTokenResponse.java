@@ -1,8 +1,6 @@
-package com.mdempire.gatePass.dtos.responses;
+package com.mdempire.dtos.responses;
 
 import lombok.Data;
-
-import java.time.LocalDateTime;
 
 @Data
 public class GenerateAccessTokenResponse {

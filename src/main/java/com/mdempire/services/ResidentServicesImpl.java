@@ -1,30 +1,34 @@
-package com.mdempire.gatePass.services;
+package com.mdempire.services;
 
-import com.mdempire.gatePass.data.models.AccessToken;
-import com.mdempire.gatePass.data.models.Resident;
-import com.mdempire.gatePass.data.models.Visitor;
-import com.mdempire.gatePass.data.repositories.AccessTokens;
-import com.mdempire.gatePass.data.repositories.Residents;
-import com.mdempire.gatePass.data.repositories.Visitors;
-import com.mdempire.gatePass.dtos.requests.FindAccessTokenRequest;
-import com.mdempire.gatePass.dtos.requests.ResidentLoginServiceRequest;
-import com.mdempire.gatePass.dtos.requests.ResidentRegisterServicesRequest;
-import com.mdempire.gatePass.dtos.requests.GenerateAccessTokenRequest;
-import com.mdempire.gatePass.dtos.responses.FindAccessTokenResponse;
-import com.mdempire.gatePass.dtos.responses.GenerateAccessTokenResponse;
-import com.mdempire.gatePass.dtos.responses.ResidentLoginServiceResponse;
-import com.mdempire.gatePass.dtos.responses.ResidentRegisterServicesResponse;
-import com.mdempire.gatePass.exceptions.ResidentDoesNotExistException;
-import com.mdempire.gatePass.exceptions.ResidentExistException;
-import com.mdempire.gatePass.exceptions.TokenNotFoundException;
+
+import com.mdempire.data.models.AccessToken;
+import com.mdempire.data.models.Resident;
+import com.mdempire.data.models.Visitor;
+import com.mdempire.data.repositories.AccessTokens;
+import com.mdempire.data.repositories.Residents;
+import com.mdempire.data.repositories.Visitors;
+import com.mdempire.dtos.requests.FindAccessTokenRequest;
+import com.mdempire.dtos.requests.GenerateAccessTokenRequest;
+import com.mdempire.dtos.requests.ResidentLoginServiceRequest;
+import com.mdempire.dtos.requests.ResidentRegisterServicesRequest;
+import com.mdempire.dtos.responses.FindAccessTokenResponse;
+import com.mdempire.dtos.responses.GenerateAccessTokenResponse;
+import com.mdempire.dtos.responses.ResidentLoginServiceResponse;
+import com.mdempire.dtos.responses.ResidentRegisterServicesResponse;
+import com.mdempire.exceptions.ResidentDoesNotExistException;
+import com.mdempire.exceptions.ResidentExistException;
+import com.mdempire.exceptions.TokenNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.mdempire.gatePass.utils.Mapper.*;
+import static com.mdempire.utils.Mapper.*;
+
 
 @Service
+@Slf4j
 public class ResidentServicesImpl implements ResidentServices {
 
     @Autowired
@@ -41,6 +45,8 @@ public class ResidentServicesImpl implements ResidentServices {
         verifyPhoneNumber(residentServicesRequest);
         Resident resident = accessTokenMapper(residentServicesRequest);
         Resident savedResident = residentRepository.save(resident);
+        log.info("Resident saved: {}", savedResident.getFullName());
+
         return response(savedResident);
     }
 

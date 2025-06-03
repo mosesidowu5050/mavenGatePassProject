@@ -1,6 +1,7 @@
-package com.mdempire.gatePass.data.repositories;
+package com.mdempire.data.repositories;
 
-import com.mdempire.gatePass.data.models.Security;
+
+import com.mdempire.data.models.Security;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface Securities extends MongoRepository<Security, String> {

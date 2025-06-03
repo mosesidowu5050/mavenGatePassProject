@@ -1,6 +1,6 @@
-package com.mdempire.gatePass.data.repositories;
+package com.mdempire.data.repositories;
 
-import com.mdempire.gatePass.data.models.Resident;
+import com.mdempire.data.models.Resident;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.Optional;
