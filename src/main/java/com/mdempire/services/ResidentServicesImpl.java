@@ -7,28 +7,17 @@ import com.mdempire.data.models.Visitor;
 import com.mdempire.data.repositories.AccessTokens;
 import com.mdempire.data.repositories.Residents;
 import com.mdempire.data.repositories.Visitors;
-import com.mdempire.dtos.requests.FindAccessTokenRequest;
-import com.mdempire.dtos.requests.GenerateAccessTokenRequest;
-import com.mdempire.dtos.requests.ResidentLoginServiceRequest;
-import com.mdempire.dtos.requests.ResidentRegisterServicesRequest;
-import com.mdempire.dtos.responses.FindAccessTokenResponse;
-import com.mdempire.dtos.responses.GenerateAccessTokenResponse;
-import com.mdempire.dtos.responses.ResidentLoginServiceResponse;
-import com.mdempire.dtos.responses.ResidentRegisterServicesResponse;
-import com.mdempire.exceptions.ResidentDoesNotExistException;
-import com.mdempire.exceptions.ResidentExistException;
-import com.mdempire.exceptions.TokenNotFoundException;
-import lombok.extern.slf4j.Slf4j;
+import com.mdempire.dtos.requests.*;
+import com.mdempire.dtos.responses.*;
+import com.mdempire.exceptions.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 import static com.mdempire.utils.Mapper.*;
 
 
 @Service
-@Slf4j
 public class ResidentServicesImpl implements ResidentServices {
 
     @Autowired
@@ -45,7 +34,6 @@ public class ResidentServicesImpl implements ResidentServices {
         verifyPhoneNumber(residentServicesRequest);
         Resident resident = accessTokenMapper(residentServicesRequest);
         Resident savedResident = residentRepository.save(resident);
-        log.info("Resident saved: {}", savedResident.getFullName());
 
         return response(savedResident);
     }
@@ -65,6 +53,8 @@ public class ResidentServicesImpl implements ResidentServices {
         Visitor visitorsInformation = visitorsInformationMapper(residentRequest);
         Visitor savedVisitor = visitorRepository.save(visitorsInformation);
         AccessToken token = accessTokensInformationMapper(residentPhoneNumber, savedVisitor);
+        savedVisitor.setReceivedToken(token.getOtpCode());
+        visitorRepository.save(savedVisitor);
         AccessToken savedToken = accessTokenRepository.save(token);
 
         return generateAccessTokenResponseMapper(savedToken);
@@ -79,21 +69,15 @@ public class ResidentServicesImpl implements ResidentServices {
         AccessToken tokenFound = accessTokenRepository.findByOtpCode(otpCode);
         if (tokenFound == null) throw new TokenNotFoundException("Token not found for code: " + otpCode);
 
-        FindAccessTokenResponse response = new FindAccessTokenResponse();
-        response.setToken(tokenFound.getOtpCode());
-        response.setTokenValid(tokenFound.isValid());
-        response.setTokenUsed(tokenFound.isUsed());
-
-        return response;
+        return mapFindAccessResponse(tokenFound);
     }
+
 
     @Override
     public List<Visitor> getListOfVisitors() {
+        if(visitorRepository == null) throw new NoVisitorFoundException("No visitors recorded");
         return visitorRepository.findAll();
     }
-
-
-
 
 
     private void verifyPhoneNumber(ResidentRegisterServicesRequest request) {

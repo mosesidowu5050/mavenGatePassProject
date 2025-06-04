@@ -7,5 +7,5 @@ public class ResidentRegisterServicesResponse {
 
     private String fullName;
     private String phoneNumber;
-
+    private String homeAddress;
 }

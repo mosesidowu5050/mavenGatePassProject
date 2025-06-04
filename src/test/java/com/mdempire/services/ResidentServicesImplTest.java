@@ -45,7 +45,6 @@ public class ResidentServicesImplTest {
     public void setUp() {
         residentRepository.deleteAll();
         visitorsRepository.deleteAll();
-
     }
 
     @Test

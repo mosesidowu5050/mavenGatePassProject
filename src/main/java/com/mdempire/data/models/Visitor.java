@@ -13,5 +13,6 @@ public class Visitor {
     private String fullName;
     private String homeAddress;
     private String phoneNumber;
+    private String receivedToken;
 
 }

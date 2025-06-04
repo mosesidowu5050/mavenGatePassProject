@@ -9,6 +9,7 @@ public class GenerateAccessTokenRequest {
     private String residentPhoneNumber;
     private String visitorsName;
     private String visitorsPhoneNumber;
+    private String visitorsAddress;
     private String otpExpiryDate;
 
 }

@@ -2,14 +2,8 @@ package com.mdempire.services;
 
 
 import com.mdempire.data.models.Visitor;
-import com.mdempire.dtos.requests.FindAccessTokenRequest;
-import com.mdempire.dtos.requests.GenerateAccessTokenRequest;
-import com.mdempire.dtos.requests.ResidentLoginServiceRequest;
-import com.mdempire.dtos.requests.ResidentRegisterServicesRequest;
-import com.mdempire.dtos.responses.FindAccessTokenResponse;
-import com.mdempire.dtos.responses.GenerateAccessTokenResponse;
-import com.mdempire.dtos.responses.ResidentLoginServiceResponse;
-import com.mdempire.dtos.responses.ResidentRegisterServicesResponse;
+import com.mdempire.dtos.requests.*;
+import com.mdempire.dtos.responses.*;
 
 import java.util.List;
 

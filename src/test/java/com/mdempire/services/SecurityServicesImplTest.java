@@ -115,7 +115,6 @@ public class SecurityServicesImplTest {
         AccessToken usedToken = accessTokenRepository.findByOtpCode(verifyResponse.getToken());
         assertTrue(usedToken.isUsed());
         assertFalse(usedToken.isValid());
-        System.out.println(usedToken);
     }
 
 

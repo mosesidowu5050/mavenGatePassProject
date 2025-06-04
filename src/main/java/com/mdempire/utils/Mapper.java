@@ -29,6 +29,7 @@ public class Mapper {
         ResidentRegisterServicesResponse response = new ResidentRegisterServicesResponse();
         response.setFullName(resident.getFullName());
         response.setPhoneNumber(resident.getPhoneNumber());
+        response.setHomeAddress(resident.getHomeAddress());
 
         return response;
     }
@@ -47,12 +48,26 @@ public class Mapper {
         generateAccessTokenResponse.setResidentPhoneNumber(token.getResident().getPhoneNumber());
         generateAccessTokenResponse.setVisitorsName(token.getVisitor().getFullName());
         generateAccessTokenResponse.setVisitorsPhoneNumber(token.getVisitor().getPhoneNumber());
+        generateAccessTokenResponse.setValid(true);
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE dd MM yyyy, hh:mm:ss a");
         generateAccessTokenResponse.setOtpCreatedOn(token.getOtpCreatedOn().format(formatter));
         generateAccessTokenResponse.setExpiryDate(token.getOtpExpiredDate().format(formatter));
 
         return generateAccessTokenResponse;
+    }
+
+
+    public static FindAccessTokenResponse mapFindAccessResponse(AccessToken tokenFound) {
+        FindAccessTokenResponse response = new FindAccessTokenResponse();
+        response.setToken(tokenFound.getOtpCode());
+        response.setResident(tokenFound.getResident());
+        response.setVisitor(tokenFound.getVisitor());
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE dd MM yyyy, hh:mm:ss a");
+        response.setCreatedOn(tokenFound.getOtpCreatedOn().format(formatter));
+
+        return response;
     }
 
     public static Resident residentsInformationMapper(Resident residentRequest) {
@@ -68,6 +83,7 @@ public class Mapper {
         Visitor visitor = new Visitor();
         visitor.setFullName(residentRequest.getVisitorsName());
         visitor.setPhoneNumber(residentRequest.getVisitorsPhoneNumber());
+        visitor.setHomeAddress(residentRequest.getVisitorsAddress());
 
         return visitor;
     }
@@ -140,5 +156,4 @@ public class Mapper {
 
         return securityVerifyTokenResponse;
     }
-
 }

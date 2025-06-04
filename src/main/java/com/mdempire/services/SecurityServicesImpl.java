@@ -20,7 +20,6 @@ import org.springframework.stereotype.Service;
 
 import static com.mdempire.utils.Mapper.*;
 
-@Slf4j
 @Service
 public class SecurityServicesImpl implements SecurityServices {
 
