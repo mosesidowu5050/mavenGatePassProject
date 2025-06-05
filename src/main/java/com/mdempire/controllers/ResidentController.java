@@ -1,18 +1,19 @@
 package com.mdempire.controllers;
 
+import com.mdempire.dtos.requests.*;
 import com.mdempire.dtos.responses.*;
 import com.mdempire.exceptions.GatePassException;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.mdempire.data.models.Visitor;
-import com.mdempire.dtos.requests.FindAccessTokenRequest;
-import com.mdempire.dtos.requests.GenerateAccessTokenRequest;
-import com.mdempire.dtos.requests.ResidentRegisterServicesRequest;
 import com.mdempire.services.ResidentServices;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.OK;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -29,6 +30,16 @@ public class ResidentController {
             return new ResponseEntity<>(new ApiResponse(response, true), HttpStatus.CREATED);
         } catch (GatePassException e) {
             return new ResponseEntity<>(new ApiResponse(e.getMessage(), false), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> loginResident(@RequestBody ResidentLoginServiceRequest request) {
+        try {
+            return new ResponseEntity<>(new ApiResponse(residentServices.login(request), true), OK);
+        }
+        catch (GatePassException e) {
+            return new ResponseEntity<>(new ApiResponse(e.getMessage(), false), BAD_REQUEST);
         }
     }
 
